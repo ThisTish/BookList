@@ -12,22 +12,12 @@ const PORT = process.env.PORT || 3001;
 
 const server = new ApolloServer({
 	typeDefs,
-	resolvers,
-	context: ({req}) =>{
-		const token = req.headers.authorization || ''
-		const user = authMiddleware.getUserFromToken(token)
-		if(!user) {
-			throw authMiddleware.AuthenticationError
-		}
-		return { user }
-	}
+	resolvers
 })
 
 const startApolloServer = async () => {
 	await server.start()
-	app.use('/graphql', expressMiddleware(server, {
-		context: authMiddleware
-	}))
+	app.use('/graphql', expressMiddleware(server))
 }
 
 app.use(express.urlencoded({ extended: true }));
@@ -40,11 +30,9 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 
-db.once('open', () => {
+startApolloServer().then(() => {
 	app.listen(PORT, () => {
 		console.log(`🌍 API server running on port:${PORT}`);
 		console.log(`🌍 GraphQL on http://localhost:${PORT}/graphql`);
 	})
 });
-
-startApolloServer()

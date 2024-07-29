@@ -4,14 +4,12 @@ const { signToken, AuthenticationError } = require('../utils/auth')
 
 const resolvers = {
 	Query: {
-		me: async(parent, context) =>{
-			const user = context.user
-
-			if(!user) {
-				throw AuthenticationError
+		me: async(parent, { username }) =>{
+			const foundUser = await User.findOne({ username }).populate('savedBooks')
+			if(!foundUser) {
+				throw new Error('Cannot Find User')
 			}
-			return User.findById(user._id).populate('savedBooks')
-			
+			return foundUser
 		}
 	},
 
@@ -42,19 +40,19 @@ const resolvers = {
 			return { token,	user }
 		},
 
-		saveBook: async(parent, { book }, context) => {
-			const user = context.user
-
-			if(!user) {
-				throw AuthenticationError
-			}
-
+		saveBook: async(parent, { user, book }) => {
+			
 			try{
 				const updatedUser = await User.findOneAndUpdate(
 					{ _id: user._id},
 					{ $addToSet: { savedBooks: book} },
 					{ new: true, runValidators: true}
 				)
+				
+				if(!updatedUser){
+					throw AuthenticationError
+				}
+
 				return updatedUser
 
 			} catch(error) {
@@ -63,12 +61,7 @@ const resolvers = {
 			}
 		},
 
-		removeBook: async(parent, { bookId }, context) => {
-			const user = context.user
-
-			if(!user) {
-				throw AuthenticationError
-			}
+		removeBook: async(parent, { user, bookId }) => {
 
 			try {
 				const updatedUser = await User.findOneAndUpdate(
@@ -76,6 +69,9 @@ const resolvers = {
 					{ $pull: {savedBooks: { bookId } } },
 					{ new: true, runValidators: true}
 				)
+				if(!updatedUser){
+					throw AuthenticationError
+				}
 				return updatedUser
 			} catch (error) {
 				console.log(error)

@@ -87,7 +87,7 @@ const { User } = require("../server/models")
 //   // `index.js`: Export your typeDefs and resolvers.
 
 //   // `resolvers.js`: Define the query and mutation functionality to work with the Mongoose models.
-//   **Hint**: Use the functionality in the `user-controller.js` as a guide.
+//   Hint**: Use the functionality in the `user-controller.js` as a guide.
 
 //   // `typeDefs.js`: Define the necessary `Query` and `Mutation` types:
 //     // `Query` type:

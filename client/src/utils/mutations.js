@@ -1,9 +1,8 @@
-import {gql} from 'graphql'
+import { gql } from '@apollo/client'
 
 const LOGIN_USER = gql `
 	mutation LoginUser(
-		$username: String,
-		$email: String,
+		$email: String!,
 		$password: String!
 	){
 		login(
@@ -93,4 +92,4 @@ const REMOVE_BOOK = gql`
 	}
 `
 
-module.exports = { LOGIN_USER, ADD_USER, SAVE_BOOK, REMOVE_BOOK }
+export { LOGIN_USER, ADD_USER, SAVE_BOOK, REMOVE_BOOK }

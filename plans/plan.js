@@ -122,7 +122,7 @@ const { User } = require("../server/models")
 
 // // `queries.js`: This will hold the query `GET_ME`, which will execute the `me` query set up using Apollo Server.
 
-// ! `mutations.js`:
+// // `mutations.js`:
 //   // `LOGIN_USER` will execute the `loginUser` mutation set up using Apollo Server.
 //   // `ADD_USER` will execute the `addUser` mutation.
 //   // `SAVE_BOOK` will execute the `saveBook` mutation.
@@ -130,8 +130,8 @@ const { User } = require("../server/models")
 
 // Additionally, you’ll need to complete the following tasks in each of these front-end files:
 
-// ! `App.jsx`: Create an Apollo Provider to make every request work with the Apollo Server.
-// import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client'
+// // `App.jsx`: Create an Apollo Provider to make every request work with the Apollo Server.
+// //import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client'
 
 // ! `SearchBooks.jsx`:
 //   TODO Use the Apollo `useMutation()` Hook to execute the `SAVE_BOOK` mutation in the `handleSaveBook()` function instead of the `saveBook()` function imported from the `API` file.

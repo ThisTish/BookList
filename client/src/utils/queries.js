@@ -17,3 +17,4 @@ const GET_ME = gql `
 		}
 	}
 `
+modules.export =  GET_ME

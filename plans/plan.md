@@ -3,17 +3,17 @@
 ## 1. Set Up GraphQL on the Back-End
 
 ### Implement Apollo Server
-- [ ] Set up Apollo Server and integrate it with Express in `server.js`.
-- [ ] Ensure that GraphQL server is properly initialized and configured.
+- [X] Set up Apollo Server and integrate it with Express in `server.js`.
+- [X] Ensure that GraphQL server is properly initialized and configured.
 
 ### Define Schema and Resolvers
-- [ ] **Create `typeDefs`** in `typeDefs.js` to define the GraphQL schema.
-- [ ] **Implement resolvers** in `resolvers.js` for handling queries and mutations.
-- [ ] **Export these** from `index.js` in the `Schemas` directory to integrate with Apollo Server.
+- [X] **Create `typeDefs`** in `typeDefs.js` to define the GraphQL schema.
+- [X] **Implement resolvers** in `resolvers.js` for handling queries and mutations.
+- [X] **Export these** from `index.js` in the `Schemas` directory to integrate with Apollo Server.
 <!-- Use the functionality in the user-controller.js as a guide. -->
 
 ### Update Auth Middleware
-- [ ] Refactor the `auth.js` middleware to work with the GraphQL context.
+- [X] Refactor the `auth.js` middleware to work with the GraphQL context.
 
 ## Update Front-End Components
 

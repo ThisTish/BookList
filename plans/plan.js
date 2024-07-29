@@ -79,44 +79,44 @@ const { User } = require("../server/models")
 // 	### Back-End Specifications
 
 
-// ! `auth.js`: Update the auth middleware function to work with the GraphQL API.
+// // `auth.js`: Update the auth middleware function to work with the GraphQL API.
 
-// ! `server.js`: Implement the Apollo Server and apply it to the Express server as middleware.
+// // `server.js`: Implement the Apollo Server and apply it to the Express server as middleware.
 
 // ! `Schemas` directory:
-//   TODO `index.js`: Export your typeDefs and resolvers.
+//   // `index.js`: Export your typeDefs and resolvers.
 
-//   TODO `resolvers.js`: Define the query and mutation functionality to work with the Mongoose models.
+//   // `resolvers.js`: Define the query and mutation functionality to work with the Mongoose models.
 //   **Hint**: Use the functionality in the `user-controller.js` as a guide.
 
-//   TODO `typeDefs.js`: Define the necessary `Query` and `Mutation` types:
-//     TODO `Query` type:
-//       todo `me`: Which returns a `User` type.
+//   // `typeDefs.js`: Define the necessary `Query` and `Mutation` types:
+//     // `Query` type:
+//       // `me`: Which returns a `User` type.
 
-//     TODO `Mutation` type:
-//       todo `login`: Accepts an email and password as parameters; returns an `Auth` type.
-//       todo `addUser`: Accepts a username, email, and password as parameters; returns an `Auth` type.
-//       todo `saveBook`: Accepts a book author's array, description, title, bookId, image, and link as parameters; returns a `User` type. (Look into creating what's known as an `input` type to handle all of these parameters!)
-//       todo `removeBook`: Accepts a book's `bookId` as a parameter; returns a `User` type.
+//     // `Mutation` type:
+//       // `login`: Accepts an email and password as parameters; returns an `Auth` type.
+//       // `addUser`: Accepts a username, email, and password as parameters; returns an `Auth` type.
+//       // `saveBook`: Accepts a book author's array, description, title, bookId, image, and link as parameters; returns a `User` type. (Look into creating what's known as an `input` type to handle all of these parameters!)
+//       // `removeBook`: Accepts a book's `bookId` as a parameter; returns a `User` type.
 
-//     TODO `User` type:
-//       * `_id`
-//       * `username`
-//       * `email`
-//       * `bookCount`
-//       * `savedBooks` (This will be an array of the `Book` type.)
+//     // `User` type:
+//        `_id`
+//        `username`
+//        `email`
+//        `bookCount`
+//        `savedBooks` (This will be an array of the `Book` type.)
 
-//     TODO `Book` type:
-//       * `bookId` (Not the `_id`, but the book's `id` value returned from Google's Book API.)
-//       * `authors` (An array of strings, as there may be more than one author.)
-//       * `description`
-//       * `title`
-//       * `image`
-//       * `link`
+//     // `Book` type:
+//        `bookId` (Not the `_id`, but the book's `id` value returned from Google's Book API.)
+//        `authors` (An array of strings, as there may be more than one author.)
+//        `description`
+//        `title`
+//        `image`
+//        `link`
 
-//     TODO `Auth` type:
-//       * `token`
-//       * `user` (References the `User` type.)
+//     // `Auth` type:
+//        `token`
+//        `user` (References the `User` type.)
 
 // ### Front-End Specifications
 

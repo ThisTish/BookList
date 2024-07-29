@@ -83,7 +83,7 @@ const { User } = require("../server/models")
 
 // // `server.js`: Implement the Apollo Server and apply it to the Express server as middleware.
 
-// ! `Schemas` directory:
+// // `Schemas` directory:
 //   // `index.js`: Export your typeDefs and resolvers.
 
 //   // `resolvers.js`: Define the query and mutation functionality to work with the Mongoose models.
@@ -100,33 +100,33 @@ const { User } = require("../server/models")
 //       // `removeBook`: Accepts a book's `bookId` as a parameter; returns a `User` type.
 
 //     // `User` type:
-//        `_id`
-//        `username`
-//        `email`
-//        `bookCount`
-//        `savedBooks` (This will be an array of the `Book` type.)
+//      //  `_id`
+//      //  `username`
+//      //  `email`
+//      //  `bookCount`
+//      //  `savedBooks` (This will be an array of the `Book` type.)
 
 //     // `Book` type:
-//        `bookId` (Not the `_id`, but the book's `id` value returned from Google's Book API.)
-//        `authors` (An array of strings, as there may be more than one author.)
-//        `description`
-//        `title`
-//        `image`
-//        `link`
+//        //`bookId` (Not the `_id`, but the book's `id` value returned from Google's Book API.)
+//        //`authors` (An array of strings, as there may be more than one author.)
+//        //`description`
+//        //`title`
+//        //``image`
+//        //`link`
 
 //     // `Auth` type:
-//        `token`
-//        `user` (References the `User` type.)
+//        //`token`
+//        //`user` (References the `User` type.)
 
 // ### Front-End Specifications
 
-// ! `queries.js`: This will hold the query `GET_ME`, which will execute the `me` query set up using Apollo Server.
+// // `queries.js`: This will hold the query `GET_ME`, which will execute the `me` query set up using Apollo Server.
 
 // ! `mutations.js`:
-//   TODO `LOGIN_USER` will execute the `loginUser` mutation set up using Apollo Server.
-//   TODO `ADD_USER` will execute the `addUser` mutation.
-//   TODO `SAVE_BOOK` will execute the `saveBook` mutation.
-//   TODO `REMOVE_BOOK` will execute the `removeBook` mutation.
+//   // `LOGIN_USER` will execute the `loginUser` mutation set up using Apollo Server.
+//   // `ADD_USER` will execute the `addUser` mutation.
+//   // `SAVE_BOOK` will execute the `saveBook` mutation.
+//   // `REMOVE_BOOK` will execute the `removeBook` mutation.
 
 // Additionally, you’ll need to complete the following tasks in each of these front-end files:
 

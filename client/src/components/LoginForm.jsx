@@ -9,7 +9,7 @@ import { useMutation } from '@apollo/client';
 
 const LoginForm = () => {
 	const [userFormData, setUserFormData] = useState({ email: '', password: '' });
-	const [validated] = useState(false);
+	const [validated, setValidated] = useState(false);
 	const [showAlert, setShowAlert] = useState(false);
 
 	const [loginUser, {error, data}] = useMutation(LOGIN_USER)
@@ -28,6 +28,8 @@ const LoginForm = () => {
 		if (form.checkValidity() === false) {
 			event.preventDefault();
 			event.stopPropagation();
+			setValidated(true)
+			return
 		}
 
 		try {
@@ -35,7 +37,7 @@ const LoginForm = () => {
 				variables: {...userFormData}});
 
 		
-			Auth.login(data.loginUser.token);
+			Auth.login(data.loginUser);
 		} catch (err) {
 			console.error(err);
 			setShowAlert(true);

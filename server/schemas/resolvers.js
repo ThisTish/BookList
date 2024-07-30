@@ -17,7 +17,6 @@ const resolvers = {
 		addUser: async(parent, { username, email, password }) =>{
 
 			try {
-				console.log(username, email, password)
 				const user = await User.create({ username, email, password })
 				const token = signToken(user)
 				return { token, user }
@@ -29,8 +28,9 @@ const resolvers = {
 		},
 
 		login: async (parent, { email, password }) =>{
+			console.log(email, password)
 			const user = await User.findOne({email})
-
+			console.log(user)
 			if(!user) {
 				throw AuthenticationError
 			}

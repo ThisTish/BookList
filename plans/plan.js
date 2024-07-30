@@ -142,7 +142,7 @@ const { User } = require("../server/models")
 //   TODO Instead, use the `useQuery()` Hook to execute the `GET_ME` query on load and save it to a variable named `userData`.
 //   TODO Use the `useMutation()` Hook to execute the `REMOVE_BOOK` mutation in the `handleDeleteBook()` function instead of the `deleteBook()` function that's imported from `API` file. (Make sure you keep the `removeBookId()` function in place!)
 
-// ! `SignupForm.jsx`: Replace the `addUser()` functionality imported from the `API` file with the `ADD_USER` mutation functionality.
+// // `SignupForm.jsx`: Replace the `addUser()` functionality imported from the `API` file with the `ADD_USER` mutation functionality.
 
 // ! `LoginForm.jsx`: Replace the `loginUser()` functionality imported from the `API` file with the `LOGIN_USER` mutation functionality.
 

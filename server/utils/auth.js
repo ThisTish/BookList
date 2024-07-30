@@ -41,17 +41,5 @@ module.exports = {
 		const payload = { username, email, _id };
 
 		return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
-	},
-
-	getUserFromToken: function (token) {
-		if (token){
-			token = token.split(' ').pop().trim()
-		}
-		try{
-			const { data } = jwt.verify(token, secret, { maxAge: expiration})
-			return data
-		} catch {
-			return null
-		}
 	}
 };

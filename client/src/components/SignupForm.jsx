@@ -6,10 +6,10 @@ import { useMutation } from '@apollo/client';
 
 const SignupForm = () => {
 	const [userFormData, setUserFormData] = useState({ username: '', email: '', password: '' });
-	const [validated] = useState(false);
+	const [validated, setValidated] = useState(false);
 	const [showAlert, setShowAlert] = useState(false);
 
-	const [ addUser, {error, data} ] = useMutation( ADD_USER)
+	const [ addUser, {error, data} ] = useMutation(ADD_USER)
 
 	const handleInputChange = (event) => {
 		const { name, value } = event.target;
@@ -18,12 +18,13 @@ const SignupForm = () => {
 
 	const handleFormSubmit = async (event) => {
 		event.preventDefault();
-		console.log(userFormData)
 
 		const form = event.currentTarget;
 		if (form.checkValidity() === false) {
 			event.preventDefault();
 			event.stopPropagation();
+			setValidated(true)
+			return
 		}
 
 		try {

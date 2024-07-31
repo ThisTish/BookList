@@ -7,7 +7,10 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client'
 const client = new ApolloClient({
 	uri: 'http://localhost:3001/graphql',
-	cache: new InMemoryCache()
+	cache: new InMemoryCache(),
+	onError: (error) => {
+		console.log('apollo Client Error', error)
+	}
 })
 
 

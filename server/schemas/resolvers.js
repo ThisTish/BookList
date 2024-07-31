@@ -46,44 +46,45 @@ const resolvers = {
 			return { token,	user }
 		},
 
-		saveBook: async(parent, { user, book }) => {
-			
-			try{
-				const updatedUser = await User.findOneAndUpdate(
-					{ _id: user._id},
-					{ $addToSet: { savedBooks: book} },
-					{ new: true, runValidators: true}
-				)
-				
-				if(!updatedUser){
-					throw AuthenticationError
+		saveBook: async(parent, { book }, context) => {
+			if(context.user){
+				try{
+					const updatedUser = await User.findOneAndUpdate(
+						{ _id: context.user._id},
+						{ $addToSet: { savedBooks: book} },
+						{ new: true, runValidators: true}
+					)
+					
+					if(!updatedUser){
+						throw AuthenticationError
+					}
+
+					return updatedUser
+
+				} catch(error) {
+					console.log(error)
+					throw new Error(`Couldn't Update: ${error.message}`)
 				}
-
-				return updatedUser
-
-			} catch(error) {
-				console.log(error)
-				throw new Error(`Couldn't Update: ${error.message}`)
 			}
 		},
 
-		removeBook: async(parent, { user, bookId }) => {
-
-			try {
-				const updatedUser = await User.findOneAndUpdate(
-					{_id: user._id},
-					{ $pull: {savedBooks: { bookId } } },
-					{ new: true, runValidators: true}
-				)
-				if(!updatedUser){
-					throw AuthenticationError
+		removeBook: async(parent, { bookId }, context) => {
+			if(context.user){
+				try {
+					const updatedUser = await User.findOneAndUpdate(
+						{_id: context.user._id},
+						{ $pull: {savedBooks: { bookId } } },
+						{ new: true, runValidators: true}
+					)
+					if(!updatedUser){
+						throw AuthenticationError
+					}
+					return updatedUser
+				} catch (error) {
+					console.log(error)
+					throw new Error(`Couldn't Update: ${error.message}`)
 				}
-				return updatedUser
-			} catch (error) {
-				console.log(error)
-				throw new Error(`Couldn't Update: ${error.message}`)
 			}
-
 		}
 	}
 }

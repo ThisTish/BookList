@@ -18,21 +18,23 @@ const SavedBooks = () => {
 	const { loading, data, error } = useQuery(GET_ME, {
 		context: {
 			headers: {
-			authorization: `Bearer ${Auth.getToken()}`,
+				authorization: `Bearer ${Auth.getToken()}`,
 			}
 		}
 	})
-
+console.log(data)
 	const [ removeBook ] = useMutation(REMOVE_BOOK)
 
 	const [userData, setUserData] = useState({savedBooks: []})
-
+	console.log(userData)
 	useEffect(() =>{
 		if(data) {
 			setUserData(data.me)
 		}
 	},
 	[data])
+	
+	console.log(userData)
 
 
 

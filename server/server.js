@@ -24,7 +24,7 @@ app.use(cors({
 
 const server = new ApolloServer({
 	typeDefs,
-	resolvers	
+	resolvers
 })
 
 

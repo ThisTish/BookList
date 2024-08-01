@@ -6,15 +6,21 @@ const { json } = require("express")
 const resolvers = {
 	Query: {
 		me: async(parent, args, context) =>{
-			if(!context.data){
+			if(!context.user){
 				throw new Error('Context.user not found')
 			}
-			const foundUser = await User.findById(context.data.user._id).populate('savedBooks')
+			const foundUser = await User.findById(context.user._id).populate('savedBooks')
 
 			if (!foundUser) {
 				throw new Error('error in finding by id')
 			}
+			console.log(`found user ${JSON.stringify(foundUser)}`)
 			return foundUser
+		},
+
+		all: async() =>{
+			const users = User.find().populate('savedBooks')
+			return users
 		}
 	},
 
@@ -55,7 +61,7 @@ const resolvers = {
 					const updatedUser = await User.findOneAndUpdate(
 						{ _id: context.user._id},
 						{ $addToSet: { savedBooks: book} },
-						{ new: true, runValidators: true}
+						{ new: true}
 					)
 					
 					if(!updatedUser){

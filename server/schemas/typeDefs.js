@@ -31,6 +31,7 @@ const typeDefs = `
 	}
 
 	type Query {
+		all: [User]
 		me: User
 	}
 

@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client'
 
-const GET_ME = gql `
+const GET_ME = gql`
 	query Me {
-		me(username) {
+		me {
 			_id
 			username
 			savedBooks{
@@ -16,4 +16,4 @@ const GET_ME = gql `
 		}
 	}
 `
-modules.export =  GET_ME
+export { GET_ME }

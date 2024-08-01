@@ -1,13 +1,18 @@
 const { Query } = require("mongoose")
 const { User, Book } = require("../models")
 const { signToken, AuthenticationError } = require('../utils/auth')
+const { json } = require("express")
 
 const resolvers = {
 	Query: {
-		me: async(parent, { username }) =>{
-			const foundUser = await User.findOne({ username }).populate('savedBooks')
-			if(!foundUser) {
-				throw new Error('Cannot Find User')
+		me: async(parent, args, context) =>{
+			if(!context.data){
+				throw new Error('Context.user not found')
+			}
+			const foundUser = await User.findById(context.data.user._id).populate('savedBooks')
+
+			if (!foundUser) {
+				throw new Error('error in finding by id')
 			}
 			return foundUser
 		}
@@ -28,9 +33,7 @@ const resolvers = {
 		},
 
 		login: async (parent, { email, password }) =>{
-			console.log(email, password)
 			const user = await User.findOne({email})
-			console.log(user)
 			if(!user) {
 				throw AuthenticationError
 			}
@@ -47,7 +50,7 @@ const resolvers = {
 		},
 
 		saveBook: async(parent, { book }, context) => {
-			if(context.user){
+			if(context){
 				try{
 					const updatedUser = await User.findOneAndUpdate(
 						{ _id: context.user._id},
@@ -58,13 +61,16 @@ const resolvers = {
 					if(!updatedUser){
 						throw AuthenticationError
 					}
-
+					console.log(updatedUser)
 					return updatedUser
 
 				} catch(error) {
 					console.log(error)
 					throw new Error(`Couldn't Update: ${error.message}`)
 				}
+			}
+			else{
+				console.log(`no user found`)
 			}
 		},
 

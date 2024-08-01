@@ -14,14 +14,17 @@ import Auth from '../utils/auth';
 import { searchGoogleBooks } from '../utils/API';
 import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
 
+
+
+
 const SearchBooks = () => {
 	const [searchedBooks, setSearchedBooks] = useState([]);
 	const [searchInput, setSearchInput] = useState('');
 	const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
 
-	useEffect(() => {
-		return () => saveBookIds(savedBookIds);
-	}, [savedBookIds]);
+	// useEffect(() => {
+	// 	return () => saveBookIds(savedBookIds);
+	// }, [savedBookIds]);
 
 	// create method to search for books and set state on form submit
 	const handleFormSubmit = async (event) => {
@@ -61,28 +64,45 @@ const SearchBooks = () => {
 	// create function to handle saving a book to our database
 	const handleSaveBook = async (bookId) => {
 		const bookToSave = searchedBooks.find((book) => book.bookId === bookId);
-		console.log(bookToSave)
+		if (!bookToSave) {
+            return;
+        }
 		
 		const token = Auth.loggedIn() ? Auth.getToken() : null;
 		if (!token) {
-			console.log('no token')
+			console.log(`no token`)
 			return false;
 		}
 
-		try {
-			// const userId = Auth.getProfile().data._id
-			const { data } = await saveBook({
-				variables: {book:{... bookToSave}}});
+		
 
-			// if book successfully saves to user's account, save book id to state
-			setSavedBookIds([...savedBookIds, bookToSave.bookId]);
-			
+		try {
+			const {data} = await saveBook({
+				variables: {book: bookToSave},
+				context:{
+					headers:{
+						authorization: `Bearer ${token}`
+					}
+				}
+				
+			});
+
+			if(data){
+				setSavedBookIds([...savedBookIds, bookToSave.bookId])
+				console.log(savedBookIds)
+
+			}else{
+				console.log(`nope`)
+			}
 
 		} catch (err) {
 			console.error(err);
 		}
 	};
 
+	if(error){
+		console.log(`mutation ${error.message}`)
+	}
 	return (
 		<>
 			<div className="text-light bg-dark p-5">

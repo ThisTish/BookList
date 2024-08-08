@@ -14,7 +14,6 @@ module.exports = {
 	authMiddleware: ({req}) => {
 		// allows token to be sent via  req.query or headers
 		let token = req.query.token || req.headers.authorization || req.body.token
-		console.log(`authmiddleware ${token}`)
 
 		// ["Bearer", "<tokenvalue>"]
 		if (token && req.headers.authorization) {
@@ -24,23 +23,23 @@ module.exports = {
 		if (!token) {
 			return req
 		}
-
+		console.log(`authmiddleware utils/auth ${token}`)
 		// verify token and get user data out of it
 		try {
 			const { data } = jwt.verify(token, secret, { maxAge: expiration });
-			console.log(`auth data ${data}`)
 			req.user = data
+			console.log(`util/auth ${data}`)
 		} catch {
 			console.log('Invalid token');
 		}
+		console.log(`Auth: ${Object.keys(req)}`)
 		return req
 		// send to next endpoint
 	},
 
 	signToken: function ({ username, email, _id }) {
 		const payload = { username, email, _id };
-		console.log(`signToken ${Object.values(payload)}`)
-
+	console.log(`signToken util/auth ${JSON.stringify(payload)}`)
 		return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
 	}
 };

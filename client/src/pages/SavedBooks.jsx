@@ -15,46 +15,61 @@ import { useMutation, useQuery } from '@apollo/client'
 
 // get saved books/user page
 const SavedBooks = () => {
-	const { loading, data, error } = useQuery(GET_ME, {
-		context: {
-			headers: {
-				authorization: `Bearer ${Auth.getToken()}`,
-			}
+	const [userData, setUserData] = useState({})
+
+	const userDataLength = Object.keys(userData).length
+console.log(userDataLength)
+		const getUserData = async() => {
+			try{
+				const token = Auth.loggedIn() ? Auth.getToken() : null
+				if(!token){
+					console.log(`no token in getting userData`)
+					return false
+				} 
+				const { loading, data, error } = useQuery(GET_ME, {
+					context: {
+						headers: {
+							authorization: `Bearer ${token}`,
+						}
+					}
+				})
+				if(!data) {
+					throw new Error(`error with authorizing while getting userData`)
+				}
+				setUserData(data.me)
+				
+		}catch(err){
+			console.log(`Error in getting user data: ${err}`)
 		}
-	})
-console.log(data)
+	
+		
+	}
+
+
+	
 	const [ removeBook ] = useMutation(REMOVE_BOOK)
 
-	const [userData, setUserData] = useState({savedBooks: []})
-	console.log(userData)
-	useEffect(() =>{
-		if(data) {
-			setUserData(data.me)
-		}
-	},
-	[data])
 	
-	console.log(userData)
-
-
-
 	// remove book
 	const handleDeleteBook = async (bookId) => {
 		const token = Auth.loggedIn() ? Auth.getToken() : null;
-		
 		if (!token) {
 			console.log('no token')
 			return false;
 		}
+		console.log(`bookId in handledelete ${bookId}`)
+		console.log(token)
 		try{	
-			await removeBook({
+			console.log(`trying to remove`)
+			const { data } = await removeBook({
 				variables: { bookId },
 				context:{
 					headers:{
-						authorization: `Bearer ${Auth.getToken()}`
+						authorization: `Bearer ${token}`
 					}
 				}
 			});
+			console.log(`removed book: ${data.removeBook}`)
 
 			setUserData((prevData) => ({
 				...prevData,
@@ -83,8 +98,9 @@ console.log(data)
 				<Row>
 					{userData.savedBooks.map((book) => {
 						return (
-							<Col md="4">
-								<Card key={book.bookId} border='dark'>
+							<Col md="4" key={book.bookId} >
+								<Card border='dark'>
+									<h1>{book.bookId}</h1>
 									{book.image ? <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant='top' /> : null}
 									<Card.Body>
 										<Card.Title>{book.title}</Card.Title>

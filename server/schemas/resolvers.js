@@ -81,13 +81,15 @@ const resolvers = {
 		},
 
 		removeBook: async(parent, { bookId }, context) => {
-			if(context.user){
+				console.log(`BookId in resolver:${bookId}`)
+			if(context && context.user){
+				console.log(context.user._id)
 				try {
 					const updatedUser = await User.findOneAndUpdate(
 						{_id: context.user._id},
 						{ $pull: {savedBooks: { bookId } } },
-						{ new: true, runValidators: true}
 					)
+					console.log(updatedUser)
 					if(!updatedUser){
 						throw AuthenticationError
 					}
@@ -96,6 +98,8 @@ const resolvers = {
 					console.log(error)
 					throw new Error(`Couldn't Update: ${error.message}`)
 				}
+			}else{
+				console.log(`no user`)
 			}
 		}
 	}

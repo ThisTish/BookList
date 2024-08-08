@@ -61,7 +61,7 @@ const SAVE_BOOK = gql`
 
 const REMOVE_BOOK = gql`
 	mutation RemoveBook(
-		$bookId: BookInput!
+		$bookId: String!
 	){
 		removeBook(
 			bookId: $bookId

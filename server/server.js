@@ -8,7 +8,7 @@ const db = require('./config/connection')
 
 const morgan = require('morgan')
 const cors = require('cors')
-
+const colors = require('colors')
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -18,13 +18,14 @@ const PORT = process.env.PORT || 3001;
 app.use(cors({
 	origin: 'http://localhost:3000',
 	methods: ['GET', 'POST'],
-	allowedHeaders: ['Content-Type', 'Authorization']
+	// allowedHeaders: ['Content-Type', 'Authorization']
 }))
 
 
 const server = new ApolloServer({
 	typeDefs,
 	resolvers
+	
 })
 
 

@@ -7,12 +7,12 @@ import {
 	Card,
 	Row
 } from 'react-bootstrap';
-import { useMutation } from '@apollo/client'
+import { useMutation, useQuery } from '@apollo/client'
 import { SAVE_BOOK } from '../utils/mutations'
 
 import Auth from '../utils/auth';
 import { searchGoogleBooks } from '../utils/API';
-import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
+// import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
 
 
 
@@ -20,8 +20,7 @@ import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
 const SearchBooks = () => {
 	const [searchedBooks, setSearchedBooks] = useState([]);
 	const [searchInput, setSearchInput] = useState('');
-	const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
-
+	// const [savedBookIds, setSavedBookIds] = useState(getSavedBookIds());
 	// useEffect(() => {
 	// 	return () => saveBookIds(savedBookIds);
 	// }, [savedBookIds]);
@@ -87,10 +86,14 @@ const SearchBooks = () => {
 				
 			});
 
+			
 			if(data){
 				setSavedBookIds([...savedBookIds, bookToSave.bookId])
 				console.log(savedBookIds)
-
+			}
+			if (loading) {
+				return <div>Loading...</div>;
+				
 			}else{
 				console.log(`nope`)
 			}
